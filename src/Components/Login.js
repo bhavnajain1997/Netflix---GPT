@@ -1,20 +1,85 @@
 import { useRef, useState } from "react"
 import Header from "./Header"
 import checkValidData from "../utilis/validate"
-
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth"
+import {auth} from "../utilis/firebase"
+import { useNavigate } from "react-router-dom"
+import { updateProfile } from "firebase/auth"
+import { useDispatch } from "react-redux"
+import { addUser } from "../utilis/userSlice"
 const Login = () => {
      
     const [isSignInForm, setIsSignInForm] = useState(true)
-    const [message, setMessage] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const name = useRef(null)
     const email = useRef(null);
     const password = useRef(null);
+    console.log(password)
     const handleButtonClick = () => {
     //    console.log(email.current.value)
     //    console.log(password.current.value)
-       setMessage(checkValidData(email.current.value, password.current.value))
-       
+     const message = checkValidData(email.current.value, password.current.value)
+       setErrorMessage(message)
        if(!message){
          // sign in/ sign up 
+         if(!isSignInForm){
+            // Sign Up logic
+         createUserWithEmailAndPassword(
+            auth, 
+            email.current.value,
+             password.current.value
+            )
+          .then((userCredential) => {
+    // Signed up 
+         const user = userCredential.user;
+         updateProfile(user, {
+          displayName: name.current.value, photoURL: "https://avatars.githubusercontent.com/u/67094266?v=4"
+        }).then(() => {
+          const {uid, email, displayName, photoURL} = auth.currentUser;
+              dispatch(addUser({
+                uid: uid,
+                email: email,
+                displayName: displayName,
+                photoURL: photoURL}));
+          navigate("/browse")
+        }).catch((error) => {
+           setErrorMessage(error.message)
+        });
+         
+         console.log(user)
+    // ...
+       })
+     .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setErrorMessage(errorCode + "-" + errorMessage);
+    // ..
+  });
+
+         }
+         else{
+             // Sign In logic
+             signInWithEmailAndPassword(auth,
+                 email.current.value, 
+                 password.current.value)
+             .then((userCredential) => {
+               // Signed in 
+               const user = userCredential.user;
+               
+              
+               navigate("/browse")
+               console.log(user)
+               // ...
+             })
+             .catch((error) => {
+               const errorCode = error.code;
+               const errorMessage = error.message;
+               setErrorMessage(errorCode + "-" + errorMessage)
+             });
+           
+         }
 
        }
        
@@ -38,9 +103,9 @@ const Login = () => {
             )
             }
             <input ref={email} type="text" placeholder="Email"  className="p-3 my-2 w-full bg-zinc-900 rounded" required/>
-            <p className="text-red-700">{message}</p>
+            <p className="text-red-700">{errorMessage}</p>
             <input ref={password} type="password" placeholder="password"  className="p-3 my-2 w-full bg-zinc-900 rounded"/>
-            <p className="text-red-700">{message}</p>
+            <p className="text-red-700">{errorMessage}</p>
             <button onSubmit={(e)=>e.preventDefault()} type="button" className="p-2 my-6 bg-red-600 w-full rounded " onClick={handleButtonClick}>{isSignInForm  ? "Sign In" : "Sign Up"}</button>
             <h3 className="text-center">Forgot Password?</h3>
             {/* <input type="checkbox" className="left-0" placeholder="Remember"/><span>Remember me</span> */}

@@ -7,6 +7,12 @@
 - Sign Up Form
 - Form Validation
 - Use Ref Hooks
+- Firebase setup
+- Deploying our App to Production
+- Create SignUp in firebase
+- Implement Sign In user Api
+- Created Redux Store with userslice 
+
 
 # Feature
 - Login/Sign Up page

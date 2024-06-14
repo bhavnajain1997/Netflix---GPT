@@ -3,39 +3,34 @@ import Header from "./Header"
 import checkValidData from "../utilis/validate"
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth"
 import {auth} from "../utilis/firebase"
-import { useNavigate } from "react-router-dom"
 import { updateProfile } from "firebase/auth"
 import { useDispatch } from "react-redux"
 import { addUser } from "../utilis/userSlice"
+import { USER_AVATAR } from "../utilis/constants"
 const Login = () => {
      
     const [isSignInForm, setIsSignInForm] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const name = useRef(null)
     const email = useRef(null);
     const password = useRef(null);
-    console.log(password)
+  
     const handleButtonClick = () => {
-    //    console.log(email.current.value)
-    //    console.log(password.current.value)
      const message = checkValidData(email.current.value, password.current.value)
        setErrorMessage(message)
        if(!message){
-         // sign in/ sign up 
          if(!isSignInForm){
-            // Sign Up logic
          createUserWithEmailAndPassword(
             auth, 
             email.current.value,
              password.current.value
             )
           .then((userCredential) => {
-    // Signed up 
          const user = userCredential.user;
          updateProfile(user, {
-          displayName: name.current.value, photoURL: "https://avatars.githubusercontent.com/u/67094266?v=4"
+          displayName: name.current.value,
+          photoURL: USER_AVATAR
         }).then(() => {
           const {uid, email, displayName, photoURL} = auth.currentUser;
               dispatch(addUser({
@@ -43,46 +38,30 @@ const Login = () => {
                 email: email,
                 displayName: displayName,
                 photoURL: photoURL}));
-          navigate("/browse")
         }).catch((error) => {
            setErrorMessage(error.message)
         });
-         
-         console.log(user)
-    // ...
        })
      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         setErrorMessage(errorCode + "-" + errorMessage);
-    // ..
   });
-
          }
          else{
-             // Sign In logic
              signInWithEmailAndPassword(auth,
                  email.current.value, 
                  password.current.value)
-             .then((userCredential) => {
-               // Signed in 
+             .then((userCredential) => { 
                const user = userCredential.user;
-               
-              
-               navigate("/browse")
-               console.log(user)
-               // ...
              })
              .catch((error) => {
                const errorCode = error.code;
                const errorMessage = error.message;
                setErrorMessage(errorCode + "-" + errorMessage)
-             });
-           
+             });     
          }
-
-       }
-       
+       } 
     }
     const toogleSignInForm = () => {
           setIsSignInForm(!isSignInForm)
@@ -90,9 +69,7 @@ const Login = () => {
     
     return (
         <div >
-           
               <Header/>
-            
             <div className="absolute">
             <img src="https://assets.nflxext.com/ffe/siteui/vlv3/a99688ca-33c3-4099-9baa-07a2e2acb398/ca15fd28-b624-4852-8bfe-9cdd5c88475d/IN-en-20240520-popsignuptwoweeks-perspective_alpha_website_large.jpg"/>
             </div>

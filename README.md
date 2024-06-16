@@ -12,6 +12,22 @@
 - Create SignUp in firebase
 - Implement Sign In user Api
 - Created Redux Store with userslice 
+- Implemented Sign Out
+- Update Portfolio
+- BugFix: Sign Up user displayName and Porfolio picture update
+- BugFix: if the user is not logged in Redirect /browser to Login page and vice versa.
+- Unsubscribed to the onAuthStateChanged callback.
+- Add hardcoded values to the constants file.
+- register and create an app & access token.
+- Get Data from api now playing movies list api.
+- Custom Hook for Now Playing Movies
+- Create movieSlice
+- Update Store with movies Data
+- Planning for MainContauiner & secondary container
+- Fetch Data for Trailer Video
+- Update Store with Trailer Video Data
+- Embedded the Yotube video and make it autoplay and mute
+- Tailwind Classes to make Main Container look awesome
 
 
 # Feature

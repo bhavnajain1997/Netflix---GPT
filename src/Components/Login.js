@@ -30,15 +30,18 @@ const Login = () => {
          const user = userCredential.user;
          updateProfile(user, {
           displayName: name.current.value,
-          photoURL: USER_AVATAR
+          photoURL: USER_AVATAR,
         }).then(() => {
           const {uid, email, displayName, photoURL} = auth.currentUser;
               dispatch(addUser({
                 uid: uid,
                 email: email,
                 displayName: displayName,
-                photoURL: photoURL}));
-        }).catch((error) => {
+                photoURL: photoURL,
+              })
+            );
+        })
+        .catch((error) => {
            setErrorMessage(error.message)
         });
        })

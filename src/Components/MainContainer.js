@@ -8,12 +8,12 @@ const MainContainer = () => {
     const movies = useSelector(store => store.movies?.nowPlayingMovies);
     if(movies === null) return 
     const mainMovies = movies[0]
-    const {title, description,image} = mainMovies
-    console.log(mainMovies)
+    const {title, overview,imageurl, id} = mainMovies
+    // console.log(mainMovies)
   return (
     <div>
-        <VideoTitle title = {title} description = {description} image_url={image}/>
-        <VideoBackground/>
+        <VideoTitle title = {title} description = {overview} image_url={imageurl}/>
+        <VideoBackground movieId = {id}/>
      
     </div>
   )

@@ -5,7 +5,9 @@ export const USER_AVATAR = "https://occ-0-6247-2164.1.nflxso.net/dnm/api/v6/K6hj
 export const API_OPTIONS = {
 	method: 'GET',
 	headers: {
-		'x-rapidapi-key': 'e2f339ea0emshde2718fd9b21b9fp153839jsnc03f35677744',
-		'x-rapidapi-host': 'imdb-top-100-movies.p.rapidapi.com'
+	  accept: 'application/json',
+	  Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYWE2YjFlZjcxZjBjYmMxOTQ0ZDkzMjRjZThjNGRmYSIsInN1YiI6IjY2NmM4MDczZWRjNjkwMTE5NzE4ODY5NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lgOv0dQgcOJ6Tml1rW-2VZz9HXcq77364q5e_N-ZnQQ'
 	}
-};
+  };
+
+

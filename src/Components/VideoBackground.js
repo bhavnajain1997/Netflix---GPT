@@ -5,7 +5,7 @@ import useVideoTrailer from '../hooks/useVideoTrailer'
 const VideoBackground = ({movieId}) => {
   const trailerVideo =  useSelector(store => store.movies?.trailerVideo)
    useVideoTrailer(movieId);
-   console.log(movieId);
+   
   return (
     <div className='w-screen'><iframe
     className = "w-screen aspect-video  "

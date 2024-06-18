@@ -1,0 +1,9 @@
+html{
+    overflow-x: hidden !important;
+}
+body{
+    background-color: black;
+}
+.movie-card::-webkit-scrollbar{
+display: none;
+}

@@ -37,7 +37,7 @@ const Login = () => {
                 uid: uid,
                 email: email,
                 displayName: displayName,
-                photoURL: photoURL,
+                photoURL: photoURL
               })
             );
         })

@@ -10,11 +10,12 @@ import { LOGO, SUPPORTED_LANGUAGES } from "../utilis/constants"
 import GptSearch from "./GptSearch"
 import { toggleGptSearchView } from "../utilis/GPTSlice"
 import { changeLanguage } from "../utilis/configSlice"
-
+import showGptSearch from "../utilis/GPTSlice"
 const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((store) => store.user);
+    const showGptSearch = useSelector((store) => store.gpt.showGptSearch)
     const handleSignOut = () => {
         signOut(auth).then(() => {
             // Sign-out successful.
@@ -57,23 +58,27 @@ const Header = () => {
          </div>
         { user && (
           <div className="flex justify-around gap-7">
-            <select className="p-2 m-2 bg-gray-900 text-white" onChange={handleLanguageChange}>
-              {SUPPORTED_LANGUAGES.map((lang)=> (
-                  <option key = {lang.identifier} value = {lang.identifier}>{lang.name}</option>
-              ))}
-              
-            </select>
+           {showGptSearch && (
+             <select className="p-2 m-2 bg-gray-900 text-white" onChange={handleLanguageChange}>
+             {SUPPORTED_LANGUAGES.map((lang)=> (
+                 <option key = {lang.identifier} value = {lang.identifier}>{lang.name}</option>
+             ))}
+             
+           </select> 
+           )}
+            
             {/* <img src="https://occ-0-6247-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABdpkabKqQAxyWzo6QW_ZnPz1IZLqlmNfK-t4L1VIeV1DY00JhLo_LMVFp936keDxj-V5UELAVJrU--iUUY2MaDxQSSO-0qw.png?r=e6e"/> */}
             <button className="text-white py-2 px-4 mx-4 bg-purple-800 rounded-lg"
             onClick={handleGPTSearchClick}
-            >GPT Search</button>
+            >{showGptSearch ? "Home Page" : "GPT Search"}</button>
             <img
             className="hidden md:block w-12 h-12"
             alt="usericon"
             src={user?.photoURL}
           />
             <button onClick={handleSignOut} className="font-bold text-white bg-red-600 py-2 px-4 mx-4 rounded-lg"> Sign Out</button>
-        </div>)}
+        </div>)
+        }
         </div>
         
     )

@@ -6,9 +6,10 @@ import { auth } from "../utilis/firebase"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utilis/userSlice"
-import { LOGO } from "../utilis/constants"
+import { LOGO, SUPPORTED_LANGUAGES } from "../utilis/constants"
 import GptSearch from "./GptSearch"
 import { toggleGptSearchView } from "../utilis/GPTSlice"
+import { changeLanguage } from "../utilis/configSlice"
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -46,6 +47,9 @@ const Header = () => {
        // Toggle GPT Search
        dispatch(toggleGptSearchView())
     }
+    const handleLanguageChange = (e) => {
+       dispatch(changeLanguage(e.target.value))
+    }
     return (
         <div className="absolute flex items-center justify-between w-screen px-8 py-2 bg-gradient-to-b from-black header-img z-10" >
          <div>
@@ -53,6 +57,12 @@ const Header = () => {
          </div>
         { user && (
           <div className="flex justify-around gap-7">
+            <select className="p-2 m-2 bg-gray-900 text-white" onChange={handleLanguageChange}>
+              {SUPPORTED_LANGUAGES.map((lang)=> (
+                  <option key = {lang.identifier} value = {lang.identifier}>{lang.name}</option>
+              ))}
+              
+            </select>
             {/* <img src="https://occ-0-6247-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABdpkabKqQAxyWzo6QW_ZnPz1IZLqlmNfK-t4L1VIeV1DY00JhLo_LMVFp936keDxj-V5UELAVJrU--iUUY2MaDxQSSO-0qw.png?r=e6e"/> */}
             <button className="text-white py-2 px-4 mx-4 bg-purple-800 rounded-lg"
             onClick={handleGPTSearchClick}

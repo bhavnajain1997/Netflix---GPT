@@ -1,43 +1,50 @@
-import { useSelector } from 'react-redux';
-import { useNowPlayingMovies } from '../hooks/useNowPlayingMovies'
-import { usePopularMovies } from '../hooks/usePopularMovies';
-import { useTopRatedMovies } from '../hooks/useTopRatedMovies';
-import { useUpcomingMovies } from '../hooks/useUpcomingMovies';
-import GptSearch from './GptSearch';
+import React from 'react'
 import Header from './Header'
+import  { useNowPlayingMovies }  from '../hooks/useNowPlayingMovies.js'
 import MainContainer from './MainContainer';
 import SecondaryContainer from './SecondaryContainer';
+import { usePopularMovies } from '../hooks/usePopularMovies.js';
+import { useTopRatedMovies } from '../hooks/useTopRatedMovies.js';
+import { useUpcomingMovies } from '../hooks/useUpcomingMovies.js';
+import GPTSearch from './GPTSearch.js';
+import { useSelector } from 'react-redux';
 
 const Browse = () => {
-  const showGptSearch = useSelector(store => store.gpt.showGptSearch)
+  const showGptSearch = useSelector(store => store.GPT.showGptSearch);
   useNowPlayingMovies();
-  usePopularMovies()
-  useTopRatedMovies()
-  useUpcomingMovies()
+  usePopularMovies();
+  useTopRatedMovies();
+  useUpcomingMovies();
+
+  
   return (
     <div>
       <Header/>
-      {showGptSearch ? (
-        <GptSearch/>
-      ) : (
-        <>
-         <MainContainer/>
-         <SecondaryContainer/>
-        </>
-      )
-       }
-      { /* 
-      MainContainer
-         - VideoBackground
-         - VideoTitle
-      SecondaryContainer
-          - movielist * n
-             - moviecard * n
-      */ }
+      {
+        showGptSearch ? (
+          <GPTSearch/>
+        ) : (
+          <>
+          <MainContainer/>
+          <SecondaryContainer/>
+          </> 
+        )
+      }
+      
+      
+      {/* 
+            MainContainer
+            - VideoBackground
+            - VideoTitle
+
+            SecondaryContainer
+
+            - Movielist * n
+             - MovieCard * n
+             
+      */}
     </div>
-    
-    
   )
 }
 
-export default Browse;
+export default Browse

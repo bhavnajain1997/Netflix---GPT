@@ -1,17 +1,17 @@
-import React from 'react'
-
-const VideoTitle = ({title,description,image_url}) => {
+const VideoTitle = ({ title, overview }) => {
   return (
-    <div className='w-screen aspect-video pt-[15%] px-20 px-12 absolute bg-gradient-to-r from-black'>
-      <img src={image_url}/>
-      <h1 className='text-6xl font-bold text-white'>{title}</h1>
-      <p className='py-6 text-lg w-5/12 text-white'>{description}</p>
-      <div className='flex items-center gap-2'>
-      <button className='bg-white text-black font-bold p-2 px-10 text-xl rounded hover:bg-opacity-70'><i className="fa-solid fa-play"></i> Play</button>
-      <button className='bg-gray-600 text-white p-2 px-10 text-xl rounded bg-opacity-50 '><i class="fa-solid fa-circle-info"></i> More Info</button>
+    <div className="w-screen aspect-video pt-[20%] md:px-24 px-3 absolute text-white bg-gradient-to-r from-black">
+      <h1 className=" text-xl md:text-6xl font-bold">{title}</h1>
+      <p className="hidden md:inline-block md:py-6 py-2 text-xs md:text-lg md:w-1/4">{overview}</p>
+      <div className="md:my-4 my-2 md:m-0">
+        <button className=" bg-white text-black font-bold  py-1 md:py-4 px-3 md:px-12 md:text-xl text-lg  rounded hover:bg-opacity-80">
+           Play
+        </button>
+        <button className="hidden md:inline-block mx-2 font-bold bg-gray-500 text-white py-1 md:p-4 px-3 md:px-12 md:text-xl text-xs bg-opacity-50 rounded">
+          More Info
+        </button>
       </div>
     </div>
-  )
-}
-
-export default VideoTitle
+  );
+};
+export default VideoTitle;

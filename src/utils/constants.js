@@ -22,5 +22,5 @@ export const API_OPTIONS = {
     {identifier: "german", name: "German"}
   ];
 
-export const GEMINI_KEY =  process.env.REACT_APP_GEMINI_KEY;
-export const { GoogleGenerativeAI } = require("@google/generative-ai");
+// export const GEMINI_KEY =  process.env.REACT_APP_GEMINI_KEY;
+// export const { GoogleGenerativeAI } = require("@google/generative-ai");
